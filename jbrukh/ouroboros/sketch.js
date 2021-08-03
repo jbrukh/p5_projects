@@ -8,7 +8,6 @@ let col1, col2;
 let loopStyle;
 let xSwivel, ySwivel;
 let noLoopMode = false;
-let downloadN = 1;
 
 function setVars(seed) {
 	randomSeed(seed);
@@ -25,35 +24,9 @@ function setup() {
 	background(0);
 	stroke(255);
 	strokeWeight(1); 
-	
-	if (noLoopMode) {
-		// in no loop mode, the vars are set in draw()
-		noLoop();
-		ptsPerLoop = iter;
-	} else {
-		setVars();
-	}
+	setVars(13);
+
 }
-
-// V1
-//
-// function x(t) {
-// 	return sin(t / squish)*200 + 5*t*sin(100*t);
-// }
-// function y(t) {
-// 	return cos(t / squish)*200 + 5*t*cos(100*t);
-// }
-
-//
-//
-// function x(t) {
-// 	return sin(t / squish)*200 + 3*t*sin(loopStyle*t) + xSwivel * t;
-// }
-
-// function y(t) {
-// 	return cos(t / squish)*200 + 3*t*cos(loopStyle*t);
-// }
-
 
 function x(t) {
 	return sin(t / squish)*200 + 3*t*sin(loopStyle*t) + xSwivel * t;
@@ -68,7 +41,7 @@ function makeSnake() {
 	for (var j = 0; j < ptsPerLoop; j++, i++) {
 		let xt = x(t), yt = y(t);
 		if (px && py) {
-			strokeWeight(1*(1-i/iter));
+			strokeWeight(1.5*(1-i/iter));
 			let c = lerpColor(col1, col2, i/iter);
 			c.setAlpha(0.9 * 255 * (1-i/iter)^2);
 			stroke(c);
@@ -81,10 +54,5 @@ function makeSnake() {
 }
 
 function draw() {
-	if (noLoopMode) {
-		setVars();
-		makeSnake();
-	} else {
-		makeSnake();
-	}
+	makeSnake();
 }
