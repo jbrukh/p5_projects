@@ -8,6 +8,7 @@ let col1, col2;
 let loopStyle;
 let xSwivel, ySwivel;
 let noLoopMode = false;
+let capturer = new CCapture({ format: 'png', framerate: 60 });
 
 function setVars(seed) {
 	randomSeed(seed);
@@ -24,8 +25,7 @@ function setup() {
 	background(0);
 	stroke(255);
 	strokeWeight(1); 
-	setVars(13);
-
+	setVars(13);	
 }
 
 function x(t) {
@@ -37,6 +37,9 @@ function y(t) {
 }
 
 function makeSnake() {
+	if (frameCount === 1) {
+		capturer.start();
+	}
 	translate(width/2, height/2);	
 	for (var j = 0; j < ptsPerLoop; j++, i++) {
 		let xt = x(t), yt = y(t);
