@@ -39,7 +39,7 @@ function setup() {
 	background(0);
 	stroke(255);
 	strokeWeight(1); 
-	setVars(222);	
+	setVars(23);	
 }
 
 function x(t) {
@@ -70,7 +70,6 @@ function makeSnake() {
 			c.setAlpha(0.90 * 255 * (1-i/iter)^2);
 			c.setRed(c._getRed() * noise(t/10));
 			c.setGreen(c._getGreen() * noise(t/7+7));
-			c.setBlue(c._getBlue() * noise(t/10+11));
 			stroke(c);
 			line(px, py, xt, yt);
 		}
