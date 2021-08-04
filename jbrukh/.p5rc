@@ -1,6 +1,7 @@
 {
   "name": "jbrukh",
   "projects": [
-    "ouroboros"
+    "ouroboros",
+    "experiment"
   ]
 }

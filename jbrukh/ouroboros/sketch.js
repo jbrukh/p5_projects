@@ -39,7 +39,7 @@ function setup() {
 	background(0);
 	stroke(255);
 	strokeWeight(1); 
-	setVars(23);	
+	setVars(12049);	
 }
 
 function x(t) {
