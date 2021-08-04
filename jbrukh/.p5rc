@@ -2,6 +2,7 @@
   "name": "jbrukh",
   "projects": [
     "ouroboros",
-    "clock1"
+    "clock1",
+    "timecrystal"
   ]
 }
