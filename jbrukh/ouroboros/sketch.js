@@ -11,7 +11,7 @@ let noLoopMode = false;
 let capturer = new CCapture({ format: 'gif', workersPath: '../libraries/', framerate: 60 });
 let record = false;
 let p1, p2, p3, p4;
-let coolOnes = [10, 23, 213];
+let coolOnes = [316813, 485544, 903087, 370905];
 
 function setVars(seed) {
 	randomSeed(seed);
@@ -39,7 +39,9 @@ function setup() {
 	background(0);
 	stroke(255);
 	strokeWeight(1); 
-	setVars(12049);	
+	let seed = random(0, 1000000);
+	print('seed = %d', seed);
+	setVars(seed);	
 }
 
 function x(t) {
