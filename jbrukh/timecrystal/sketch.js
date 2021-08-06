@@ -6,8 +6,10 @@ let tickm;
 let tickh;
 let strokeh, strokem, strokes;
 let d;
+let fps = 60;
 // let h = 23, m = 59, s = 55;
 let h, m, s;
+let ts, ts2;
 let styles = [
 	function() {
 		noStroke();
@@ -26,17 +28,19 @@ let styles = [
 
 function setup() {
 	createCanvas(w, w);
-	frameRate(1);
+	frameRate(fps);
 	
 	rs = 230/1000*w;
 	rm = 330/1000*w;
 	rh = 430/1000*w;
-	tickm = 34/1000*w;
+	tickm = 32/1000*w;
 	tickh = 110/1000*w;
 	d = 32/1000*w;
 	strokeh = 4/1000*w;
 	strokem = 2/1000*w;
 	strokes = 1/1000*w;
+	ts = 40/1000*w;
+	ts2 = 12/1000*w;
 	
 	if (!h) h = hour();
 	if (!m) m = minute();
@@ -62,23 +66,25 @@ function clock(h, m, s) {
 
 	push();
 	rotate(TWO_PI * s/60);
-	triangle(0, rs, rs/15, rs*.60, -1*rs/15, rs*.60);
+	triangle(0, rs, 0.06*rs, rs*0.60, -0.06*rs, rs*0.60);
+	quad(0.01*rs, -0.60*rs, -0.01*rs, -0.60*rs, -0.01*rs, -1*rs, 0.01*rs, -1*rs);
 	stroke(255);
-	// line(0, rs, 0, -rs);
+	strokeWeight(strokes/2);
+	line(0, rs, 0, -rs);
 	pop();	
 	
 	push();
-	for (let i = 1; i <= 60; i++) {
-		if (i <= m) {
+	for (let i = 0; i < 60; i++) {
+		if (i <= m && i > 0) {
 			styles[(ceil(i/10)+1)%3]();
-			circle(rm*sin(-TWO_PI/60*(i-1)), rm*cos(-TWO_PI/60*(i-1)), tickm);
+			circle(rm*sin(-TWO_PI/60*i), rm*cos(-TWO_PI/60*i), tickm);
 		} else {
 			strokeWeight(strokem);
 			stroke(255);
-			let x1 = 1.02*rm*sin(-TWO_PI/60*(i-1));
-			let y1 = 1.02*rm*cos(-TWO_PI/60*(i-1));
-			let x2 = 0.98*rm*sin(-TWO_PI/60*(i-1));
-			let y2 = 0.98*rm*cos(-TWO_PI/60*(i-1));
+			let x1 = 1.02*rm*sin(-TWO_PI/60*i);
+			let y1 = 1.02*rm*cos(-TWO_PI/60*i);
+			let x2 = 0.98*rm*sin(-TWO_PI/60*i);
+			let y2 = 0.98*rm*cos(-TWO_PI/60*i);
 			line(x1, y1, x2, y2);
 		}
 	}
@@ -87,7 +93,7 @@ function clock(h, m, s) {
 	push();
 	rotate(-TWO_PI/3);
 	for (let i = 0; i < 24; i++) {
-		if (i < h && i > 0) {
+		if (i <= h && i > 0) {
 			styles[(ceil(i/8)+1) % 3]();
 			circle(rh*sin(-TWO_PI/24*i), rh*cos(-TWO_PI/24*i), tickh);
 		} else {
@@ -108,16 +114,19 @@ function draw() {
 	background(0);
 	clock(h, m, s);
 	
-  s++;
-	if (s === 60) {
-	  s = 0;
-		m++;
+	// update once per second
+	if (frameCount % fps === 0) {
+		s++;
+		if (s === 60) {
+			s = 0;
+			m++;
+		}
+		if (m === 60) {
+			m = 0;
+			h++;
+		}
+		if (h === 24) {
+			h = 0;
+		};
 	}
-	if (m === 60) {
-		m = 0;
-		h++;
-	}
-	if (h === 24) {
-		h = 0;
-	};
 }
