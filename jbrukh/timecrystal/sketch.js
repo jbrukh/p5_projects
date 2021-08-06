@@ -17,7 +17,7 @@ let styles = [
 	},
 	function() {
 		stroke(255);
-		fill('deepskyblue');
+		fill(color(226,114,91));
 	},
 	function() {
 		strokeWeight(1);
