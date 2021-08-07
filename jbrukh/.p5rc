@@ -3,6 +3,7 @@
   "projects": [
     "ouroboros",
     "clock1",
-    "timecrystal"
+    "timecrystal",
+    "roxy"
   ]
 }

@@ -8,15 +8,14 @@ let col1, col2;
 let loopStyle;
 let xSwivel, ySwivel;
 let noLoopMode = false;
-let capturer = new CCapture({ format: 'gif', workersPath: '../libraries/', framerate: 60 });
-let record = false;
 let p1, p2, p3, p4;
 let coolOnes = [316813, 485544, 903087, 370905];
 
 function setVars(seed) {
 	randomSeed(seed);
-	squish 		= random(2.5, 4);
+	squish 		= random(2, 4);
 	loopStyle   = random(20, 120);
+
 	col1 		= color(random(255), random(255), random(255));
 	col2 		= color(random(255), random(255), random(255));
 	xSwivel 	= random();
@@ -45,23 +44,14 @@ function setup() {
 }
 
 function x(t) {
-	return sin(p1 * t / squish)*200 + 2.5*t*sin(loopStyle * t * p2) + xSwivel * t;
+	return sin(p1 * t / squish)*300 + 2.5*t*sin(loopStyle * t * p2) + xSwivel * t;
 }
 
 function y(t) {
-	return cos(p3 * t / squish)*200 + 2.5*t*cos(loopStyle * t * p4);
+	return cos(p3 * t / squish)*300 + 2.5*t*cos(loopStyle * t * p4);
 }
 
 function makeSnake() {
-	if (record && frameCount === 1) {
-		capturer.start();
-	}
-	if (record && i >= iter) {
-		noLoop();
-		capturer.stop();
-		capturer.save();
-		return;
-	}
 	translate(width/2, height/2);	
 	rotate(r1);
 	for (var j = 0; j < ptsPerLoop; j++, i++) {
@@ -78,10 +68,6 @@ function makeSnake() {
 		px = xt;
 		py = yt;
 		t += 0.0005;
-	}
-
-	if (record) {
-		capturer.capture(document.getElementById('defaultCanvas0'));
 	}
 }
 
